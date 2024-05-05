@@ -1,14 +1,30 @@
 from typing import Optional, Any, Hashable
 
 
+class CacheOverFlow(Exception):
+    pass
+
+
 class LRUCache:
 
-    def __init__(self):
+    def __init__(self, capacity: int):
         self.__data = dict()
+        self.__capacity = capacity
 
     def get(self, key: Hashable) -> Optional[Any]:
         value = self.__data[key]
         return value
 
+    def __is_cache_out_of_capacity__(self) -> bool:
+        return len(self.__data) >= self.__capacity
+
+    def __does_key_exists__(self, key: Hashable) -> bool:
+        return key in self.__data
+
+    def __does_key_not_exists__(self, key: Hashable) -> bool:
+        return not self.__does_key_exists__(key=key)
+
     def put(self, key: Hashable, value: Any) -> None:
+        if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
+            raise CacheOverFlow()
         self.__data[key] = value
