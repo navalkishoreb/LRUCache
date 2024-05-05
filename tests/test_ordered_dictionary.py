@@ -1,10 +1,10 @@
 import pytest
 
-from src.ordered_list import OrderedList
+from src.ordered_dictionary import OrderedDictionary
 
 
-def test_order_list():
-    ordered_obj = OrderedList()
+def test_ordered_dictionary():
+    ordered_obj = OrderedDictionary()
     ordered_obj.update("a")
     assert ordered_obj == ["a"]
     ordered_obj.update("b")
@@ -13,16 +13,16 @@ def test_order_list():
     assert ordered_obj == ["a", "b"]
 
 
-def test_ordered_list_last_element():
-    ordered_obj = OrderedList()
+def test_ordered_dictionary_last_element():
+    ordered_obj = OrderedDictionary()
     ordered_obj.update("a")
     ordered_obj.update("b")
     value = ordered_obj.last_element()
     assert value == "a"
 
 
-def test_ordered_list_remove_last_element():
-    ordered_obj = OrderedList()
+def test_ordered_dictionary_remove_last_element():
+    ordered_obj = OrderedDictionary()
     ordered_obj.update("a")
     ordered_obj.update("b")
     value = ordered_obj.remove_last_element()
@@ -30,16 +30,15 @@ def test_ordered_list_remove_last_element():
     assert ordered_obj == ["b"]
 
 
-def test_ordered_list_remove_last_element_when_empty():
-    ordered_obj = OrderedList()
+def test_ordered_dictionary_remove_last_element_when_empty():
+    ordered_obj = OrderedDictionary()
     value = ordered_obj.remove_last_element()
     assert value is None
     assert ordered_obj == []
 
 
 @pytest.mark.timeout(1)
-@pytest.mark.xfail()
-def test_ordered_list_time_complexity_with_large_dataset():
-    ordered_obj = OrderedList()
-    for item in range(10000):
+def test_ordered_dictionary_time_complexity_with_large_dataset():
+    ordered_obj = OrderedDictionary()
+    for item in range(2100000):
         ordered_obj.update(item)

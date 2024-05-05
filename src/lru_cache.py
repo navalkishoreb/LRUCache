@@ -1,5 +1,6 @@
 from typing import Optional, Any, Hashable
 
+from src.ordered_dictionary import OrderedDictionary
 from src.ordered_list import OrderedList
 
 
@@ -12,7 +13,7 @@ class LRUCache:
     def __init__(self, capacity: int):
         self.__data = dict()
         self.__capacity = capacity
-        self.__order = OrderedList()
+        self.__order = OrderedDictionary()
 
     def get(self, key: Hashable) -> Optional[Any]:
         value = self.__data[key]
