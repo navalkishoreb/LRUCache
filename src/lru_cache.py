@@ -38,3 +38,9 @@ class LRUCache:
         last_element = self.__order.last_element()
         del self.__data[last_element]
         self.__order.remove_last_element()
+
+    def __eq__(self, other):
+        if isinstance(other, dict):
+            return self.__data == other
+        else:
+            return False
