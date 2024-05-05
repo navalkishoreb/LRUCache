@@ -30,6 +30,11 @@ class LRUCache:
 
     def put(self, key: Hashable, value: Any) -> None:
         if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
-            raise CacheOverFlow()
+            self.__evict__()
         self.__data[key] = value
         self.__order.update(key)
+
+    def __evict__(self):
+        last_element = self.__order.last_element()
+        del self.__data[last_element]
+        self.__order.remove_last_element()

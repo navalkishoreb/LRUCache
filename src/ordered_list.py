@@ -1,4 +1,5 @@
 from collections import deque
+from typing import Optional, Hashable
 
 
 class OrderedList:
@@ -22,3 +23,9 @@ class OrderedList:
         if isinstance(other, list):
             return list(self.__order_list) == other
         return False
+
+    def last_element(self) -> Optional[Hashable]:
+        return self.__order_list[-1] if self.__order_list else None
+
+    def remove_last_element(self) -> Optional[Hashable]:
+        return self.__order_list.pop() if self.__order_list else None
