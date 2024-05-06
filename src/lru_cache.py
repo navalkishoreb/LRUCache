@@ -1,7 +1,6 @@
 from typing import Optional, Any, Hashable
 
 from src.ordered_dictionary import OrderedDictionary
-from src.ordered_list import OrderedList
 
 
 class CacheOverFlow(Exception):
@@ -16,6 +15,8 @@ class LRUCache:
         self.__order = OrderedDictionary()
 
     def get(self, key: Hashable) -> Optional[Any]:
+        if key not in self.__data:
+            return None
         value = self.__data[key]
         self.__order.update(key=key)
         return value
