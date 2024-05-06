@@ -15,19 +15,22 @@ pip install -r requirements.txt
 ## To run test cases
 
 ` 
-pytest -rA tests/
+pytest
 `
 
 ### Test Output
 
 ```
-===================================================================================================== short test summary info ======================================================================================================
-PASSED tests/test_lru_cache.py::test_cache
-PASSED tests/test_lru_cache.py::test_cache_out_of_capacity
-PASSED tests/test_lru_cache.py::test_cache_when_same_key_is_inserted
-PASSED tests/test_ordered_list.py::test_order_list
-PASSED tests/test_ordered_list.py::test_ordered_list_last_element
-PASSED tests/test_ordered_list.py::test_ordered_list_remove_last_element
-PASSED tests/test_ordered_list.py::test_ordered_list_remove_last_element_when_empty
-======================================================================================================== 7 passed in 0.02s =========================================================================================================
+======================================================================================================= test session starts ========================================================================================================
+platform linux -- Python 3.9.6, pytest-8.2.0, pluggy-1.5.0
+rootdir: /home/naval/Documents/LRUCache
+plugins: timeout-2.3.1
+collected 17 items                                                                                                                                                                                                                 
+
+tests/test_lru_cache.py ....                                                                                                                                                                                                 [ 23%]
+tests/test_lru_cache_with_threads.py ..                                                                                                                                                                                      [ 35%]
+tests/test_ordered_dictionary.py ......                                                                                                                                                                                      [ 70%]
+tests/test_ordered_list.py ....x                                                                                                                                                                                             [100%]
+
+================================================================================================== 16 passed, 1 xfailed in 2.24s ===================================================================================================
 ```
