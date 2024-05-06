@@ -1,5 +1,7 @@
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from threading import Thread
+
+import pytest
 
 from src.lru_cache import LRUCache
 
@@ -21,9 +23,10 @@ def test_lru_cache_with_capacity_limit_with_two_threads():
     assert len(cache_obj) == 1
 
 
-def test_lru_cache_given_capacity_limit_with_two_threads_and_large_number_of_put_operation():
+@pytest.mark.timeout(1)
+def test_lru_cache_given_capacity_limit_with_threads_and_large_number_of_put_operation():
     capacity = 1
-    thread_count = 2
+    thread_count = 128
     data_set_size = 10000
     cache_obj = LRUCache(capacity=capacity)
 
