@@ -21,6 +21,12 @@ def test_ordered_dictionary_last_element():
     assert value == "a"
 
 
+def test_ordered_dictionary_last_element_dictionary_is_empty():
+    ordered_obj = OrderedDictionary()
+    value = ordered_obj.last_element()
+    assert value is None
+
+
 def test_ordered_dictionary_remove_last_element():
     ordered_obj = OrderedDictionary()
     ordered_obj.update("a")

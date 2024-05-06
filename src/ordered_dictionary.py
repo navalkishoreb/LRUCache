@@ -12,6 +12,8 @@ class OrderedDictionary:
         self.order_dict.move_to_end(key=key, last=False)
 
     def last_element(self):
+        if not self.order_dict:
+            return None
         key, value = self.order_dict.popitem()
         self.order_dict[key] = value
         return key
