@@ -35,20 +35,8 @@ def test_lru_cache_given_capacity_limit_with_two_threads_and_large_number_of_put
     with ThreadPoolExecutor(thread_name_prefix="thread", max_workers=thread_count) as executor:
         # updating the function with common data
         # executing the set_data with value range from 1 to 10,000
-        futures = []
-        for i in range(1, data_set_size + 1):
-            future = executor.submit(set_data, i)
-            futures.append(future)
-
-        for future in as_completed(futures):
-            try:
-                result = future.result()
-            except Exception:
-                result = False
-            results.append(result)
+        results = executor.map(set_data, range(1, data_set_size + 1))
     current_cache_size = len(cache_obj)
-    # print(results)
     assert current_cache_size == capacity, f"Cache size should at {capacity} but found {current_cache_size}"
     successful = len([result for result in results if result])
-    # print(f"{successful} were successful out of {limit}")
     assert successful == data_set_size, f"Only {successful} put calls were successful out of {data_set_size}"

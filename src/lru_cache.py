@@ -1,3 +1,4 @@
+from threading import RLock
 from typing import Optional, Any, Hashable
 
 from src.ordered_dictionary import OrderedDictionary
@@ -13,6 +14,13 @@ class LRUCache:
         self.__data = dict()
         self.__capacity = capacity
         self.__order = OrderedDictionary()
+        """
+        A reentrant lock must be released by the thread that acquired it. Once a
+        thread has acquired a reentrant lock, the same thread may acquire it again
+        without blocking; the thread must release it once for each time it has
+        acquired it.
+        """
+        self.lock = RLock()
 
     def get(self, key: Hashable) -> Optional[Any]:
         if key not in self.__data:
@@ -31,10 +39,11 @@ class LRUCache:
         return not self.__does_key_exists__(key=key)
 
     def put(self, key: Hashable, value: Any) -> None:
-        if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
-            self.__evict__()
-        self.__data[key] = value
-        self.__order.update(key)
+        with self.lock:
+            if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
+                self.__evict__()
+            self.__data[key] = value
+            self.__order.update(key)
 
     def __evict__(self):
         last_element = self.__order.last_element()
