@@ -46,3 +46,6 @@ class LRUCache:
             return self.__data == other
         else:
             return False
+
+    def __len__(self):
+        return len(self.__data)
