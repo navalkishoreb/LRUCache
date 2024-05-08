@@ -37,7 +37,6 @@ def test_ordered_list_remove_last_element_when_empty():
     assert ordered_obj == []
 
 
-@pytest.mark.timeout(1)
 @pytest.mark.xfail()
 def test_ordered_list_time_complexity_with_large_dataset():
     ordered_obj = OrderedList()

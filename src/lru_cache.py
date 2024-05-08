@@ -14,12 +14,6 @@ class LRUCache:
         self.__data = dict()
         self.__capacity = capacity
         self.__order = OrderedDictionary()
-        """
-        A reentrant lock must be released by the thread that acquired it. Once a
-        thread has acquired a reentrant lock, the same thread may acquire it again
-        without blocking; the thread must release it once for each time it has
-        acquired it.
-        """
         self.lock = RLock()
 
     def get(self, key: Hashable) -> Optional[Any]:
@@ -40,15 +34,19 @@ class LRUCache:
 
     def put(self, key: Hashable, value: Any) -> None:
         with self.lock:
-            if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
-                self.__evict__()
-            self.__data[key] = value
-            self.__order.update(key)
+            self.__put__(key=key, value=value)
+        # return self.__put__(key=key, value=value)
+
+    def __put__(self, key: Hashable, value: Any) -> None:
+        if self.__is_cache_out_of_capacity__() and self.__does_key_not_exists__(key=key):
+            self.__evict__()
+        self.__data[key] = value
+        self.__order.update(key)
 
     def __evict__(self):
-        last_element = self.__order.last_element()
-        del self.__data[last_element]
-        self.__order.remove_last_element()
+        last_element = self.__order.remove_last_element()
+        if last_element in self.__data:
+            del self.__data[last_element]
 
     def __eq__(self, other):
         if isinstance(other, dict):
