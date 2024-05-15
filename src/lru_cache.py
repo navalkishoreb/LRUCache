@@ -10,9 +10,9 @@ class CacheOverFlow(Exception):
 
 class LRUCache:
 
-    def __init__(self, capacity: int):
-        self.__data = dict()
+    def __init__(self, capacity: int, data: dict = None):
         self.__capacity = capacity
+        self.__data = data or dict()
         self.__order = OrderedDictionary()
         self.lock = RLock()
 
@@ -22,6 +22,12 @@ class LRUCache:
         value = self.__data[key]
         self.__order.update(key=key)
         return value
+
+    def get_and_increment(self, key: Hashable, update_by: int = 1):
+        with self.lock:
+            value = int(self.get(key=key))
+            value += update_by
+            self.put(key=key, value=value)
 
     def __is_cache_out_of_capacity__(self) -> bool:
         return len(self.__data) >= self.__capacity
@@ -56,3 +62,6 @@ class LRUCache:
 
     def __len__(self):
         return len(self.__data)
+
+    def get_data(self):
+        return self.__data
