@@ -3,7 +3,7 @@ from threading import Thread
 
 import pytest
 
-from src.lru_cache import LRUCache
+from src.domain.lru_cache import LRUCache
 
 
 def test_lru_cache_with_capacity_limit_with_two_threads():

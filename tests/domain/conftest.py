@@ -1,6 +1,6 @@
 import pytest
 
-from src.lru_cache import LRUCache
+from src.domain.lru_cache import LRUCache
 
 
 @pytest.fixture

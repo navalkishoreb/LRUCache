@@ -1,7 +1,7 @@
 from threading import RLock
 from typing import Optional, Any, Hashable
 
-from src.ordered_dictionary import OrderedDictionary
+from src.domain.ordered_dictionary import OrderedDictionary
 
 
 class CacheOverFlow(Exception):

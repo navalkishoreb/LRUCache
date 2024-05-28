@@ -1,6 +1,6 @@
 import pytest
 
-from src.ordered_list import OrderedList
+from src.domain.ordered_list import OrderedList
 
 
 def test_order_list():

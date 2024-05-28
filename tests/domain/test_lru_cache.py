@@ -1,4 +1,4 @@
-from src.lru_cache import LRUCache
+from src.domain.lru_cache import LRUCache
 
 
 def test_cache():

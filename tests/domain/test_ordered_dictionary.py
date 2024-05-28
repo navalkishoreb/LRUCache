@@ -2,7 +2,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
-from src.ordered_dictionary import OrderedDictionary
+from src.domain.ordered_dictionary import OrderedDictionary
 
 DATA_SET_SIZE = 10000
 
